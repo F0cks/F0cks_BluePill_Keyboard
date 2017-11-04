@@ -49,6 +49,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_custom_hid_if.h"
 /* USER CODE BEGIN INCLUDE */
+#include "keyboard_descriptor.h"
 /* USER CODE END INCLUDE */
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
   * @{
@@ -91,13 +92,12 @@
 /** @defgroup USBD_AUDIO_IF_Private_Variables
  * @{
  */
-__ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END =
+__ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[CUSTOM_KEYBOARD_DESC_SIZE] __ALIGN_END =
 {
-  /* USER CODE BEGIN 0 */ 
-  0x00, 
+  /* USER CODE BEGIN 0 */
+	// Custom keyboard descriptor
+	CUSTOM_KEYBOARD_DESC
   /* USER CODE END 0 */ 
-  0xC0    /*     END_COLLECTION	             */
-   
 }; 
 
 /* USER CODE BEGIN PRIVATE_VARIABLES */

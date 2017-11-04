@@ -156,7 +156,7 @@ __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_CfgDesc[USB_CUSTOM_HID_CONFIG_DESC_
   0x02,         /*bNumEndpoints*/
   0x03,         /*bInterfaceClass: CUSTOM_HID*/
   0x00,         /*bInterfaceSubClass : 1=BOOT, 0=no boot*/
-  0x00,         /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
+  0x01,         /*nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse*/
   0,            /*iInterface: Index of string descriptor*/
   /******************** Descriptor of CUSTOM_HID *************************/
   /* 18 */
