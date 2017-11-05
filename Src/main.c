@@ -71,6 +71,7 @@ static void MX_GPIO_Init(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
+int USBD_CustomHID_Config_State = 0;
 
 /* USER CODE END 0 */
 
@@ -102,6 +103,7 @@ int main(void)
   MX_USB_DEVICE_Init();
 
   /* USER CODE BEGIN 2 */
+  USBD_CustomHID_Config_State = 1;
 
   /* USER CODE END 2 */
 

@@ -36,6 +36,8 @@
 #include "stm32f1xx_it.h"
 
 /* USER CODE BEGIN 0 */
+#include "main.h"
+#include "usb_device.h"
 
 /* USER CODE END 0 */
 
@@ -168,12 +170,17 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
+	static __IO uint32_t counter = 0;
 
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
-  HAL_SYSTICK_IRQHandler();
+  //HAL_SYSTICK_IRQHandler();
   /* USER CODE BEGIN SysTick_IRQn 1 */
+	if (USBD_CustomHID_Config_State == 1 && counter++ == 10 )
+	{
 
+		counter = 0;
+	}
   /* USER CODE END SysTick_IRQn 1 */
 }
 

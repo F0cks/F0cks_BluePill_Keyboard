@@ -51,7 +51,7 @@
   /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
-
+extern int USBD_CustomHID_Config_State;
 /* USER CODE END Includes */
 
 /* Private define ------------------------------------------------------------*/
