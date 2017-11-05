@@ -82,6 +82,16 @@
   * @{
   */  
 /* USER CODE BEGIN EXPORTED_TYPES */
+
+ /*
+  *  Keyboard HID structure
+  */
+ typedef struct {
+ 	uint8_t modifiers;
+ 	uint8_t leds;
+ 	uint8_t keys[6];
+ }keyboardHID_t;
+
 /* USER CODE END EXPORTED_TYPES */
 
 /**
@@ -104,6 +114,7 @@
   extern USBD_CUSTOM_HID_ItfTypeDef  USBD_CustomHID_fops_FS;
 
 /* USER CODE BEGIN EXPORTED_VARIABLES */
+  extern keyboardHID_t keyboardHID;
 /* USER CODE END EXPORTED_VARIABLES */
 
 /**

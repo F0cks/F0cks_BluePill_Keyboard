@@ -99,9 +99,10 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
 	// Custom keyboard descriptor
 	CUSTOM_KEYBOARD_DESC
   /* USER CODE END 0 */ 
-}; 
+};
 
 /* USER CODE BEGIN PRIVATE_VARIABLES */
+keyboardHID_t keyboardHID;
 /* USER CODE END PRIVATE_VARIABLES */
 /**
   * @}
@@ -144,7 +145,15 @@ USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
 static int8_t CUSTOM_HID_Init_FS(void)
 { 
   /* USER CODE BEGIN 4 */ 
+	uint8_t  i = 0;
 	MATRIX_GPIO_Init();
+
+  keyboardHID.leds =  0;
+  keyboardHID.modifiers = 0;
+
+  for ( i=0; i<CUSTOM_KEYBOARD_SIMULT_KEYS; i++ ) {
+	  keyboardHID.keys[i]	= 0x00;
+  }
   return (0);
   /* USER CODE END 4 */ 
 }
