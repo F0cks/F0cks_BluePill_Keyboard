@@ -50,6 +50,7 @@
 #include "usbd_custom_hid_if.h"
 /* USER CODE BEGIN INCLUDE */
 #include "keyboard_descriptor.h"
+#include "keyboard_matrix.h"
 /* USER CODE END INCLUDE */
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
   * @{
@@ -143,6 +144,7 @@ USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
 static int8_t CUSTOM_HID_Init_FS(void)
 { 
   /* USER CODE BEGIN 4 */ 
+	MATRIX_GPIO_Init();
   return (0);
   /* USER CODE END 4 */ 
 }
