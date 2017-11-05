@@ -92,7 +92,7 @@
 /** @defgroup USBD_AUDIO_IF_Private_Variables
  * @{
  */
-__ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[CUSTOM_KEYBOARD_DESC_SIZE] __ALIGN_END =
+__ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DESC_SIZE] __ALIGN_END =
 {
   /* USER CODE BEGIN 0 */
 	// Custom keyboard descriptor

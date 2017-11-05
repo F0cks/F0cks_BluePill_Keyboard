@@ -4,6 +4,9 @@
 /* Number of bytes in the descriptor below */
 #define CUSTOM_KEYBOARD_DESC_SIZE 63
 
+/* Number of keys that can be pressed simultaneously (need descriptor update if changed */
+#define CUSTOM_KEYBOARD_SIMULT_KEYS 6
+
 /* Report descriptor */
 #define CUSTOM_KEYBOARD_DESC \
   /* USER CODE BEGIN 0 */																									\

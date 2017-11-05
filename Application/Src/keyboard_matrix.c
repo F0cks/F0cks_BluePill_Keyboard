@@ -1,3 +1,4 @@
+#include "keyboard_descriptor.h"
 #include "keyboard_matrix.h"
 
 // ROWS
@@ -61,7 +62,7 @@ uint8_t MATRIX_Get_Function (uint8_t r_index, uint8_t c_index) {
 void MATRIX_Get_Functions_Used (uint8_t* functions_buffer) {
 	int r_index = 0,
 	    c_index = 0,
-		i = SIMULT_KEYS;
+		  i = CUSTOM_KEYBOARD_SIMULT_KEYS;
 
 	// For all rows
 	for ( r_index = 0; r_index <  MATRIX_ROW; r_index++) {
@@ -78,8 +79,8 @@ void MATRIX_Get_Functions_Used (uint8_t* functions_buffer) {
 					functions_buffer++;
 				}
 				else {
-					functions_buffer -=  SIMULT_KEYS;
-					i = SIMULT_KEYS;
+					functions_buffer -=  CUSTOM_KEYBOARD_SIMULT_KEYS;
+					i = CUSTOM_KEYBOARD_SIMULT_KEYS;
 				}
 			}
 		}

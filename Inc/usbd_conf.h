@@ -59,6 +59,7 @@
 #include "stm32f1xx.h"
 #include "stm32f1xx_hal.h"
 #include "usbd_def.h"
+#include "keyboard_descriptor.h"
 
 /** @addtogroup USBD_OTG_DRIVER
   * @{
@@ -88,7 +89,7 @@
 /*---------- -----------*/
 #define USBD_CUSTOMHID_OUTREPORT_BUF_SIZE     2
 /*---------- -----------*/
-#define USBD_CUSTOM_HID_REPORT_DESC_SIZE     2
+#define USBD_CUSTOM_HID_REPORT_DESC_SIZE     CUSTOM_KEYBOARD_DESC_SIZE
 /****************************************/
 /* #define for FS and HS identification */
 #define DEVICE_FS 		0
