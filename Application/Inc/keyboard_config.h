@@ -71,4 +71,25 @@
 	{ KEY_LAL, KEY_LCT, KEY_LSH, KEY_W  , KEY_C , KEY_SPC, KEY_DA , KEY_B , KEY_SL, KEY_COM, KEY_SLA, KEY_LA , KEY_PAU, KEY_RA , KEY_RSH ,KEY_RGU, KEY_P3 , KEY_P0 , KEY_RAL } \
 }
 
+
+/*
+ *  Number of LEDs used ( 0 to 3 )
+ */
+#define LED_USED 1
+
+/*
+ * GPIO used for LEDs
+ */
+#define LED_GPIO_INIT {\
+		{ .gpio_port = GPIOC, .gpio_pin = GPIO_PIN_13 } \
+}
+
+/*
+ * LED functions, same order as GPIO
+ */
+#define LED_FUNCTION_INIT {\
+	CAPS_LOCK\
+}
+
+
 #endif /* __CONFIG_H */

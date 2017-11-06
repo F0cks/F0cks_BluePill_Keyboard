@@ -138,6 +138,11 @@ enum {
 
 }key_function;
 
+enum {
+	CAPS_LOCK		= 0x00,
+	NUM_LOCK		= 0x01,
+	SCROLL_LOCK	= 0x02
+}led_function;
 /*
  *  GPIO structure for configuration file
  */

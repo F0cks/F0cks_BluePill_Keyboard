@@ -5,11 +5,11 @@
   ******************************************************************************
   * This notice applies to any and all portions of this file
   * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
+  * USER CODE END. Other portions of this file, whether
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * Copyright (c) 2017 STMicroelectronics International N.V. 
+  * Copyright (c) 2017 STMicroelectronics International N.V.
   * All rights reserved.
   *
   * Redistribution and use in source and binary forms, with or without 
@@ -51,44 +51,45 @@
 /* USER CODE BEGIN INCLUDE */
 #include "keyboard_descriptor.h"
 #include "keyboard_matrix.h"
+#include "keyboard_led.h"
 /* USER CODE END INCLUDE */
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
   * @{
   */
 
-/** @defgroup USBD_CUSTOM_HID 
+/** @defgroup USBD_CUSTOM_HID
   * @brief usbd core module
   * @{
-  */ 
+  */
 
 /** @defgroup USBD_CUSTOM_HID_Private_TypesDefinitions
   * @{
-  */ 
+  */
 /* USER CODE BEGIN PRIVATE_TYPES */
-/* USER CODE END PRIVATE_TYPES */ 
+/* USER CODE END PRIVATE_TYPES */
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_CUSTOM_HID_Private_Defines
   * @{
-  */ 
+  */
 /* USER CODE BEGIN PRIVATE_DEFINES */
 /* USER CODE END PRIVATE_DEFINES */
-  
+
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_CUSTOM_HID_Private_Macros
   * @{
-  */ 
+  */
 /* USER CODE BEGIN PRIVATE_MACRO */
 /* USER CODE END PRIVATE_MACRO */
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup USBD_AUDIO_IF_Private_Variables
  * @{
@@ -98,7 +99,7 @@ __ALIGN_BEGIN static uint8_t CUSTOM_HID_ReportDesc_FS[USBD_CUSTOM_HID_REPORT_DES
   /* USER CODE BEGIN 0 */
 	// Custom keyboard descriptor
 	CUSTOM_KEYBOARD_DESC
-  /* USER CODE END 0 */ 
+  /* USER CODE END 0 */
 };
 
 /* USER CODE BEGIN PRIVATE_VARIABLES */
@@ -106,28 +107,28 @@ keyboardHID_t keyboardHID;
 /* USER CODE END PRIVATE_VARIABLES */
 /**
   * @}
-  */ 
-  
+  */
+
 /** @defgroup USBD_CUSTOM_HID_IF_Exported_Variables
   * @{
-  */ 
+  */
   extern USBD_HandleTypeDef hUsbDeviceFS;
 /* USER CODE BEGIN EXPORTED_VARIABLES */
 /* USER CODE END EXPORTED_VARIABLES */
 
 /**
   * @}
-  */ 
-  
+  */
+
 /** @defgroup USBD_CUSTOM_HID_Private_FunctionPrototypes
   * @{
   */
 static int8_t CUSTOM_HID_Init_FS     (void);
 static int8_t CUSTOM_HID_DeInit_FS   (void);
 static int8_t CUSTOM_HID_OutEvent_FS (uint8_t event_idx, uint8_t state);
- 
 
-USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS = 
+
+USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
 {
   CUSTOM_HID_ReportDesc_FS,
   CUSTOM_HID_Init_FS,
@@ -143,10 +144,11 @@ USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_fops_FS =
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t CUSTOM_HID_Init_FS(void)
-{ 
-  /* USER CODE BEGIN 4 */ 
+{
+  /* USER CODE BEGIN 4 */
 	uint8_t  i = 0;
 	MATRIX_GPIO_Init();
+	LED_GPIO_Init();
 
   keyboardHID.leds =  0;
   keyboardHID.modifiers = 0;
@@ -155,7 +157,7 @@ static int8_t CUSTOM_HID_Init_FS(void)
 	  keyboardHID.keys[i]	= 0x00;
   }
   return (0);
-  /* USER CODE END 4 */ 
+  /* USER CODE END 4 */
 }
 
 /**
@@ -166,49 +168,50 @@ static int8_t CUSTOM_HID_Init_FS(void)
   */
 static int8_t CUSTOM_HID_DeInit_FS(void)
 {
-  /* USER CODE BEGIN 5 */ 
+  /* USER CODE BEGIN 5 */
   return (0);
-  /* USER CODE END 5 */ 
+  /* USER CODE END 5 */
 }
 
 /**
   * @brief  CUSTOM_HID_OutEvent_FS
-  *         Manage the CUSTOM HID class events       
+  *         Manage the CUSTOM HID class events
   * @param  event_idx: event index
   * @param  state: event state
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
 static int8_t CUSTOM_HID_OutEvent_FS  (uint8_t event_idx, uint8_t state)
-{ 
-  /* USER CODE BEGIN 6 */ 
+{
+  /* USER CODE BEGIN 6 */
+	LED_update_status(event_idx);
   return (0);
-  /* USER CODE END 6 */ 
+  /* USER CODE END 6 */
 }
 
-/* USER CODE BEGIN 7 */ 
+/* USER CODE BEGIN 7 */
 /**
   * @brief  USBD_CUSTOM_HID_SendReport_FS
-  *         Send the report to the Host       
+  *         Send the report to the Host
   * @param  report: the report to be sent
   * @param  len: the report length
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-/*  
+/*
 static int8_t USBD_CUSTOM_HID_SendReport_FS ( uint8_t *report,uint16_t len)
 {
-  return USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, report, len); 
+  return USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, report, len);
 }
 */
-/* USER CODE END 7 */ 
+/* USER CODE END 7 */
 
 /* USER CODE BEGIN PRIVATE_FUNCTIONS_IMPLEMENTATION */
 /* USER CODE END PRIVATE_FUNCTIONS_IMPLEMENTATION */
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */  
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
