@@ -49,6 +49,9 @@
 #include "main.h"
 #include "stm32f1xx_hal.h"
 #include "usb_device.h"
+#include "usbd_custom_hid_if.h"
+#include "keyboard_matrix.h"
+
 
 /* USER CODE BEGIN Includes */
 
@@ -72,6 +75,7 @@ static void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN 0 */
 int USBD_CustomHID_Config_State = 0;
+uint8_t buffer_keys[6];
 
 /* USER CODE END 0 */
 
@@ -79,7 +83,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+	int i = 0,
+			j = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -112,12 +117,81 @@ int main(void)
   while (1)
   {
   /* USER CODE END WHILE */
+		// Empty buffer and hid handler
+		keyboardHID.modifiers = 0;
+		for ( i=0; i<CUSTOM_KEYBOARD_SIMULT_KEYS; i++ ) {
+			keyboardHID.keys[i]	= 0x00;
+			buffer_keys[i]		= 0x00;
+		}
+
+		// Check if keys are pressed
+		MATRIX_Get_Functions_Used(buffer_keys);
+
+		// Update hid handler with buffer received
+		for ( i=0; i<CUSTOM_KEYBOARD_SIMULT_KEYS; i++ ) {
+			// Modifier keys check
+			switch(buffer_keys[i]) {
+				case KEY_LCT:
+					keyboardHID.modifiers |= 0x01;
+					break;
+
+				case KEY_LSH:
+					keyboardHID.modifiers |= 0x02;
+					break;
+
+				case KEY_LAL:
+					keyboardHID.modifiers |= 0x04;
+					break;
+
+				case KEY_LGU:
+					keyboardHID.modifiers |= 0x08;
+					break;
+
+				case KEY_RCT:
+					keyboardHID.modifiers |= 0x10;
+					break;
+
+				case KEY_RSH:
+					keyboardHID.modifiers |= 0x20;
+					break;
+
+				case KEY_RAL:
+					keyboardHID.modifiers |= 0x40;
+					break;
+
+				case KEY_RGU:
+					keyboardHID.modifiers |= 0x80;
+					break;
+
+				default:
+					keyboardHID.keys[i] = buffer_keys[i];
+			}
+		}
+
+		// Check if a key has been pressed
+		if (
+			!(keyboardHID.modifiers == 0x00 &&
+			keyboardHID.keys[0] == 0x00 &&
+			keyboardHID.keys[1] == 0x00 &&
+			keyboardHID.keys[2] == 0x00 &&
+			keyboardHID.keys[3] == 0x00 &&
+			keyboardHID.keys[4] == 0x00 &&
+			keyboardHID.keys[5] == 0x00)
+		){
+			j = 1;
+			USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardHID, sizeof(keyboardHID_t));
+		}
+		else {
+			if ( j == 1 ) {
+				j = 0;
+				USBD_CUSTOM_HID_SendReport(&hUsbDeviceFS, (uint8_t*)&keyboardHID, sizeof(keyboardHID_t));
+			}
+		}
+		HAL_Delay(10);
 
   /* USER CODE BEGIN 3 */
-
   }
   /* USER CODE END 3 */
-
 }
 
 /** System Clock Configuration

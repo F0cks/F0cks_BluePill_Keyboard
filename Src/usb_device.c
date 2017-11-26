@@ -75,6 +75,8 @@ void MX_USB_DEVICE_Init(void)
   USBD_Start(&hUsbDeviceFS);
 
   /* USER CODE BEGIN USB_DEVICE_Init_PostTreatment */
+  HAL_Delay(1000);
+  USBD_LL_Reset(&hUsbDeviceFS);
   
   /* USER CODE END USB_DEVICE_Init_PostTreatment */
 }
